@@ -18,7 +18,9 @@ module.exports = {
            let wzUsername = args[2]
            API.MWBattleData(wzUsername, API.platforms.battle).then((output) => {
                console.log(output);
-               return message.reply(`\nWZ stats for ${wzUsername}\nTotal wins: ${output.br.wins}\nTotal Kills: ${output.br.kills}\nTotal Deaths: ${output.br.deaths}\nKD Ratio: ${output.br.kdRatio}\nGames Played: ${output.br.gamesPlayed}`);
+               let KDR = output.br.kdRatio;
+               KDR = KDR.toFixed(2);
+               return message.reply(`\nWZ stats for ${wzUsername}\nTotal wins: ${output.br.wins}\nTotal Kills: ${output.br.kills}\nTotal Deaths: ${output.br.deaths}\nKD Ratio: ${KDR}\nGames Played: ${output.br.gamesPlayed}`);
 
            }).catch((err) => {
                console.log(err);
@@ -29,7 +31,9 @@ module.exports = {
         let wzUsername = args[2]
         API.MWBattleData(wzUsername, API.platforms.psn).then((output) => {
             console.log(output);
-            return message.reply(`\nWZ stats for ${wzUsername}\nTotal wins: ${output.br.wins}\nTotal Kills: ${output.br.kills}\nTotal Deaths: ${output.br.deaths}\nKD Ratio: ${output.br.kdRatio}\nGames Played: ${output.br.gamesPlayed}`);
+            let KDR = output.br.kdRatio;
+            KDR = KDR.toFixed(2);
+            return message.reply(`\nWZ stats for ${wzUsername}\nTotal wins: ${output.br.wins}\nTotal Kills: ${output.br.kills}\nTotal Deaths: ${output.br.deaths}\nKD Ratio: ${KDR}\nGames Played: ${output.br.gamesPlayed}`);
             
         }).catch((err) => {
             console.log(err);
@@ -40,7 +44,9 @@ module.exports = {
         let wzUsername = args[2]
         API.MWBattleData(wzUsername, API.platforms.xbl).then((output) => {
             console.log(output);
-            return message.reply(`\nWZ stats for ${wzUsername}\nTotal wins: ${output.br.wins}\nTotal Kills: ${output.br.kills}\nTotal Deaths: ${output.br.deaths}\nKD Ratio: ${output.br.kdRatio}\nGames Played: ${output.br.gamesPlayed}`);
+            let KDR = output.br.kdRatio;
+               KDR = KDR.toFixed(2);
+               return message.reply(`\nWZ stats for ${wzUsername}\nTotal wins: ${output.br.wins}\nTotal Kills: ${output.br.kills}\nTotal Deaths: ${output.br.deaths}\nKD Ratio: ${KDR}\nGames Played: ${output.br.gamesPlayed}`);
             
         }).catch((err) => {
             console.log(err);
@@ -51,7 +57,9 @@ module.exports = {
         let wzUsername = args[2]
         API.MWBattleData(wzUsername, API.platforms.steam).then((output) => {
             console.log(output);
-            return message.reply(`\nWZ stats for ${wzUsername}\nTotal wins: ${output.br.wins}\nTotal Kills: ${output.br.kills}\nTotal Deaths: ${output.br.deaths}\nKD Ratio: ${output.br.kdRatio}\nGames Played: ${output.br.gamesPlayed}`);
+            let KDR = output.br.kdRatio;
+               KDR = KDR.toFixed(2);
+               return message.reply(`\nWZ stats for ${wzUsername}\nTotal wins: ${output.br.wins}\nTotal Kills: ${output.br.kills}\nTotal Deaths: ${output.br.deaths}\nKD Ratio: ${KDR}\nGames Played: ${output.br.gamesPlayed}`);
             
         }).catch((err) => {
             console.log(err);
@@ -62,7 +70,9 @@ module.exports = {
         let wzUsername = args[2]
         API.MWBattleData(wzUsername, API.platforms.uno).then((output) => {
             console.log(output);  
-            return message.reply(`\nWZ stats for ${wzUsername}\nTotal wins: ${output.br.wins}\nTotal Kills: ${output.br.kills}\nTotal Deaths: ${output.br.deaths}\nKD Ratio: ${output.br.kdRatio}\nGames Played: ${output.br.gamesPlayed}`);
+            let KDR = output.br.kdRatio;
+               KDR = KDR.toFixed(2);
+               return message.reply(`\nWZ stats for ${wzUsername}\nTotal wins: ${output.br.wins}\nTotal Kills: ${output.br.kills}\nTotal Deaths: ${output.br.deaths}\nKD Ratio: ${KDR}\nGames Played: ${output.br.gamesPlayed}`);
         }).catch((err) => {
             console.log(err);
         });
