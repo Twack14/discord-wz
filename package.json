@@ -4,6 +4,7 @@
   "description": "WZ discord bot ",
   "main": "index.js",
   "dependencies": {
+    "call-of-duty-api": "^1.2.3",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.2.0",
