@@ -3,7 +3,7 @@ const config = require('./config.json');
 const { prefix } = require('./config.json');
 const Discord = require('discord.js');
 const fs = require('fs');
-
+//here is a test comment
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
