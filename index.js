@@ -13,7 +13,7 @@ for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     client.commands.set(command.name, command);
 }
-//test comment
+
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.username}`);
 });
