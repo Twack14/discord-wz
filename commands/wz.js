@@ -18,7 +18,7 @@ module.exports = {
            let wzUsername = args[2]
            API.MWBattleData(wzUsername, API.platforms.battle).then((output) => {
                console.log(output);
-               return message.reply(`\nWZ stats for ${wzUsername}\nTotal Battle Royale wins: ${output.br.wins}`);
+               return message.reply(`\nWZ stats for ${wzUsername}\nTotal wins: ${output.br.wins}\nTotal Kills: ${output.br.kills}\nTotal Deaths: ${output.br.deaths}\nKD Ratio: ${output.br.kdRatio}`);
 
            }).catch((err) => {
                console.log(err);
@@ -29,7 +29,7 @@ module.exports = {
         let wzUsername = args[2]
         API.MWBattleData(wzUsername, API.platforms.psn).then((output) => {
             console.log(output);
-            return message.reply(`\nWZ stats for ${wzUsername}\nTotal Battle Royale wins: ${output.br.wins}`);
+            return message.reply(`\nWZ stats for ${wzUsername}\nTotal wins: ${output.br.wins}\nTotal Kills: ${output.br.kills}\nTotal Deaths: ${output.br.deaths}\nKD Ratio: ${output.br.kdRatio}`);
             
         }).catch((err) => {
             console.log(err);
@@ -40,7 +40,7 @@ module.exports = {
         let wzUsername = args[2]
         API.MWBattleData(wzUsername, API.platforms.xbl).then((output) => {
             console.log(output);
-            return message.reply(`\nWZ stats for ${wzUsername}\nTotal Battle Royale wins: ${output.br.wins}`);
+            return message.reply(`\nWZ stats for ${wzUsername}\nTotal wins: ${output.br.wins}\nTotal Kills: ${output.br.kills}\nTotal Deaths: ${output.br.deaths}\nKD Ratio: ${output.br.kdRatio}`);
             
         }).catch((err) => {
             console.log(err);
@@ -51,7 +51,7 @@ module.exports = {
         let wzUsername = args[2]
         API.MWBattleData(wzUsername, API.platforms.steam).then((output) => {
             console.log(output);
-            return message.reply(`\nWZ stats for ${wzUsername}\nTotal Battle Royale wins: ${output.br.wins}`);
+            return message.reply(`\nWZ stats for ${wzUsername}\nTotal wins: ${output.br.wins}\nTotal Kills: ${output.br.kills}\nTotal Deaths: ${output.br.deaths}\nKD Ratio: ${output.br.kdRatio}`);
             
         }).catch((err) => {
             console.log(err);
@@ -62,7 +62,7 @@ module.exports = {
         let wzUsername = args[2]
         API.MWBattleData(wzUsername, API.platforms.uno).then((output) => {
             console.log(output);  
-            return message.reply(`\nWarzone BR stats for ${wzUsername}\nTotal Wins: ${output.br.wins}`);
+            return message.reply(`\nWZ stats for ${wzUsername}\nTotal wins: ${output.br.wins}\nTotal Kills: ${output.br.kills}\nTotal Deaths: ${output.br.deaths}\nKD Ratio: ${output.br.kdRatio}`);
         }).catch((err) => {
             console.log(err);
         });
