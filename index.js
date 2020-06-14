@@ -15,20 +15,20 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-	console.log(`Logged in as ${client.user.username}`);
+    console.log(`Logged in as ${client.user.username}`);
 });
 
 client.on('message', message => {
 
     //if the message doesn't contain a prefix, or is from the bot itself, return
-	if (!message.content.startsWith(prefix) || message.author.bot) return;
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     //split the message into an array, then remove the first array item which is the command itself
-	const args = message.content.slice(prefix.length).split(/ +/);
+    const args = message.content.slice(prefix.length).split(/ +/);
     //const command = args.shift().toLowerCase();
     const commandName = args.shift().toLowerCase();
-    
-   
+
+
     if (!client.commands.has(commandName)) return;
 
     const command = client.commands.get(commandName);
