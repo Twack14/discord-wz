@@ -9,7 +9,7 @@ module.exports = {
         },
         description: 'Check your stats below',
         thumbnail: {
-            url: 'https://i.imgur.com/o95RO6a.jpg',
+            url: 'https://i.imgur.com/yDpdvSh.jpg',
         },
         fields: [
             {
@@ -41,13 +41,13 @@ module.exports = {
                 inline: false,
             }
         ],
-        image: {
+        /*image: {
             url: 'https://i.imgur.com/yDpdvSh.jpg',
-        },
+        },*/
         timestamp: new Date(),
         footer: {
             text: 'Bot Created by Taylor Womack',
-            icon_url: 'https://i.imgur.com/yDpdvSh.jpg',
+            icon_url: 'https://i.imgur.com/o95RO6a.jpg',
         },
     }
 }
