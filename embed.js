@@ -27,13 +27,39 @@ module.exports = {
                 inline: true,
             },
             {
+                name: 'Total Downs',
+                value: 0,
+                inline: true,
+            },
+            {
                 name: 'K/D Ratio',
+                value: 0,
+                inline: true,
+            },
+            {
+                name: 'Top 25',
+                value: 0,
+                inline: true,
+            },
+            {
+                name: 'Top 10',
+                value: 0,
+                inline: true,
+            },
+            {
+                name: 'Top 5',
                 value: 0,
                 inline: true,
             },
             {
                 name: 'Games Played',
                 value: 0,
+                inline: true,
+            },
+            {
+                name: 'Avg Kills per Game',
+                value: 0,
+                inline: true,
             },
             {
                 name: '\u200b',
