@@ -3,11 +3,11 @@ module.exports = {
         color: 0x0099ff,
         title: '',
         author: {
-            name: 'Warzone Stats Bot',
+            name: 'Warzone Stats Retriever',
             icon_url: 'https://i.imgur.com/yDpdvSh.jpg',
             url: 'https://github.com/Twack14/discord-wz',
         },
-        description: 'Check your stats below',
+        description: 'Here are your stats: ',
         thumbnail: {
             url: 'https://i.imgur.com/yDpdvSh.jpg',
         },
