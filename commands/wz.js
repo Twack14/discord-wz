@@ -20,14 +20,7 @@ module.exports = {
             let wzUsername = args[2]
             API.MWBattleData(wzUsername, API.platforms.battle).then((output) => {
                 console.log(output);
-                let KDR = output.br.kdRatio;
-                KDR = KDR.toFixed(2);
-                exampleEmbed.title = `Warzone stats for ${wzUsername}`;
-                exampleEmbed.fields[0].value = output.br.wins;
-                exampleEmbed.fields[1].value = output.br.kills;
-                exampleEmbed.fields[2].value = output.br.deaths;
-                exampleEmbed.fields[3].value = KDR;
-                exampleEmbed.fields[4].value = output.br.gamesPlayed;
+                fillFields(wzUsername, output.br.wins, output.br.kills, output.br.deaths, output.br.kdRatio, output.br.gamesPlayed);
                 return message.channel.send({ embed: exampleEmbed });
 
             }).catch((err) => {
@@ -39,16 +32,8 @@ module.exports = {
             let wzUsername = args[2]
             API.MWBattleData(wzUsername, API.platforms.psn).then((output) => {
                 console.log(output);
-                let KDR = output.br.kdRatio;
-                KDR = KDR.toFixed(2);
-                exampleEmbed.title = `Warzone stats for ${wzUsername}`;
-                exampleEmbed.fields[0].value = output.br.wins;
-                exampleEmbed.fields[1].value = output.br.kills;
-                exampleEmbed.fields[2].value = output.br.deaths;
-                exampleEmbed.fields[3].value = KDR;
-                exampleEmbed.fields[4].value = output.br.gamesPlayed;
+                fillFields(wzUsername, output.br.wins, output.br.kills, output.br.deaths, output.br.kdRatio, output.br.gamesPlayed);
                 return message.channel.send({ embed: exampleEmbed });
-
             }).catch((err) => {
                 console.log(err);
             });
@@ -58,16 +43,8 @@ module.exports = {
             let wzUsername = args[2]
             API.MWBattleData(wzUsername, API.platforms.xbl).then((output) => {
                 console.log(output);
-                let KDR = output.br.kdRatio;
-                KDR = KDR.toFixed(2);
-                exampleEmbed.title = `Warzone stats for ${wzUsername}`;
-                exampleEmbed.fields[0].value = output.br.wins;
-                exampleEmbed.fields[1].value = output.br.kills;
-                exampleEmbed.fields[2].value = output.br.deaths;
-                exampleEmbed.fields[3].value = KDR;
-                exampleEmbed.fields[4].value = output.br.gamesPlayed;
+                fillFields(wzUsername, output.br.wins, output.br.kills, output.br.deaths, output.br.kdRatio, output.br.gamesPlayed);
                 return message.channel.send({ embed: exampleEmbed });
-
             }).catch((err) => {
                 console.log(err);
             });
@@ -77,16 +54,8 @@ module.exports = {
             let wzUsername = args[2]
             API.MWBattleData(wzUsername, API.platforms.steam).then((output) => {
                 console.log(output);
-                let KDR = output.br.kdRatio;
-                KDR = KDR.toFixed(2);
-                exampleEmbed.title = `Warzone stats for ${wzUsername}`;
-                exampleEmbed.fields[0].value = output.br.wins;
-                exampleEmbed.fields[1].value = output.br.kills;
-                exampleEmbed.fields[2].value = output.br.deaths;
-                exampleEmbed.fields[3].value = KDR;
-                exampleEmbed.fields[4].value = output.br.gamesPlayed;
+                fillFields(wzUsername, output.br.wins, output.br.kills, output.br.deaths, output.br.kdRatio, output.br.gamesPlayed);
                 return message.channel.send({ embed: exampleEmbed });
-
             }).catch((err) => {
                 console.log(err);
             });
@@ -96,14 +65,7 @@ module.exports = {
             let wzUsername = args[2]
             API.MWBattleData(wzUsername, API.platforms.uno).then((output) => {
                 console.log(output);
-                let KDR = output.br.kdRatio;
-                KDR = KDR.toFixed(2);
-                exampleEmbed.title = `Warzone stats for ${wzUsername}`;
-                exampleEmbed.fields[0].value = output.br.wins;
-                exampleEmbed.fields[1].value = output.br.kills;
-                exampleEmbed.fields[2].value = output.br.deaths;
-                exampleEmbed.fields[3].value = KDR;
-                exampleEmbed.fields[4].value = output.br.gamesPlayed;
+                fillFields(wzUsername, output.br.wins, output.br.kills, output.br.deaths, output.br.kdRatio, output.br.gamesPlayed);
                 return message.channel.send({ embed: exampleEmbed });
             }).catch((err) => {
                 console.log(err);
@@ -112,3 +74,15 @@ module.exports = {
         }
     },
 };
+
+//function that takes the output and adds it to the embed field.
+fillFields = (user, wins, kills, deaths, kdRat, amtPlayed) => {
+    let KDR = kdRat;
+    KDR = KDR.toFixed(2);
+    exampleEmbed.title = `Warzone stats for ${user}`;
+    exampleEmbed.fields[0].value = wins;
+    exampleEmbed.fields[1].value = kills;
+    exampleEmbed.fields[2].value = deaths;
+    exampleEmbed.fields[3].value = KDR;
+    exampleEmbed.fields[4].value = amtPlayed;
+}
