@@ -7,7 +7,6 @@ module.exports = {
             icon_url: 'https://i.imgur.com/yDpdvSh.jpg',
             url: 'https://github.com/Twack14/discord-wz',
         },
-        description: 'Here are your stats: ',
         thumbnail: {
             url: 'https://i.imgur.com/yDpdvSh.jpg',
         },
