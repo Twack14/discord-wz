@@ -18,6 +18,10 @@ module.exports = {
             //====PC/BATTLE USERS====
         } else if (args[1] === "battle") {
             let wzUsername = args[2]
+            if (wzUsername.includes('%20')){
+                wzUsername = wzUsername.replace(/%20/g, " ");
+                args[2] = wzUsername;
+            }
             API.MWBattleData(wzUsername, API.platforms.battle).then((output) => {
                 console.log(output);
                 fillFields(wzUsername, output.br.wins, output.br.kills, output.br.deaths, output.br.downs, output.br.kdRatio, output.br.topTwentyFive, output.br.topTen, output.br.topFive, output.br.gamesPlayed);
@@ -30,6 +34,10 @@ module.exports = {
 
         } else if (args[1] === "psn") {
             let wzUsername = args[2]
+            if (wzUsername.includes('%20')){
+                wzUsername = wzUsername.replace(/%20/g, " ");
+                args[2] = wzUsername;
+            }
             API.MWBattleData(wzUsername, API.platforms.psn).then((output) => {
                 console.log(output);
                 fillFields(wzUsername, output.br.wins, output.br.kills, output.br.deaths, output.br.downs, output.br.kdRatio, output.br.topTwentyFive, output.br.topTen, output.br.topFive, output.br.gamesPlayed);
@@ -41,6 +49,10 @@ module.exports = {
 
         } else if (args[1] === "xbl") {
             let wzUsername = args[2]
+            if (wzUsername.includes('%20')){
+                wzUsername = wzUsername.replace(/%20/g, " ");
+                args[2] = wzUsername;
+            }
             API.MWBattleData(wzUsername, API.platforms.xbl).then((output) => {
                 console.log(output);
                 fillFields(wzUsername, output.br.wins, output.br.kills, output.br.deaths, output.br.downs, output.br.kdRatio, output.br.topTwentyFive, output.br.topTen, output.br.topFive, output.br.gamesPlayed);
@@ -52,6 +64,10 @@ module.exports = {
 
         } else if (args[1] === "steam") {
             let wzUsername = args[2]
+            if (wzUsername.includes('%20')){
+                wzUsername = wzUsername.replace(/%20/g, " ");
+                args[2] = wzUsername;
+            }
             API.MWBattleData(wzUsername, API.platforms.steam).then((output) => {
                 console.log(output);
                 fillFields(wzUsername, output.br.wins, output.br.kills, output.br.deaths, output.br.downs, output.br.kdRatio, output.br.topTwentyFive, output.br.topTen, output.br.topFive, output.br.gamesPlayed);
@@ -63,6 +79,10 @@ module.exports = {
 
         } else if (args[1] === "acti") {
             let wzUsername = args[2]
+            if (wzUsername.includes('%20')){
+                wzUsername = wzUsername.replace(/%20/g, " ");
+                args[2] = wzUsername;
+            }
             API.MWBattleData(wzUsername, API.platforms.uno).then((output) => {
                 console.log(output);
                 fillFields(wzUsername, output.br.wins, output.br.kills, output.br.deaths, output.br.downs, output.br.kdRatio, output.br.topTwentyFive, output.br.topTen, output.br.topFive, output.br.gamesPlayed);
