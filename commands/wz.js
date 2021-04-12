@@ -11,7 +11,7 @@ module.exports = {
     platforms: 'PC: battle\nSteam: steam\nXbox: xbl\nPlaystation: psn\nActivison ID: acti',
     execute(message, args) {
         if (args.length !== 3) {
-            return message.reply(`You didn't provide the correct number of arguments, ${message.author}!\nThe proper usage would be: \`!${this.name} ${this.usage}\`\nHere are the list of platforms to use:\n${this.platforms}`);
+            return message.reply(`You didn't provide the correct number of arguments, ${message.author}!\n\nNOTE: If your username has a space, replace that space with %20 (Ex. 'My Username -> My%20Username)\n\nThe proper usage would be: \`!${this.name} ${this.usage}\`\nHere are the list of platforms to use:\n${this.platforms}`);
 
 
 
