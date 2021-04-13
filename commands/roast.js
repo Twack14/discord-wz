@@ -19,6 +19,13 @@ module.exports = {
                 const json = await response.json();
                 var insult = json.insult;
                 var username = args[0];
+                if (insult.includes('&quot;')) {
+                    insult = insult.replace(/&quot;/g, '"');
+                }
+
+                if (insult.includes('&amp;')) {
+                    insult = insult.replace(/&amp;/g, "&");
+                }
                 console.log(insult);
                 return message.channel.send(username + " " + insult);
             })();  
