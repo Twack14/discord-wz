@@ -27,11 +27,11 @@ client.on('message', message => {
     //if the message doesn't contain a prefix, or is from the bot itself, return
     if (message.author.bot) return;
 
+    //this is the key to identify the proper user
     const key = `${message.guild.id}-${message.author.id}`;
     if (message.guild) {
 
-        
-        //Initialize a new entry in Enmap for any new user (haven't seen before)
+        //Initialize a new entry in Enmap for any new user (hasn't sent message yet seen before)
         db.points.ensure(key, {
             user: message.author.id,
             guild: message.guild.id,
@@ -39,6 +39,7 @@ client.on('message', message => {
             level: 1,
             username: message.author.username
         });
+
         //increments a value directly
         db.points.math(key, "+", random.int(15, 25), "points");
 
@@ -54,7 +55,7 @@ client.on('message', message => {
         //multiplies that result by 0.1 then floors that result for a round number.
         const curLevel = Math.floor(0.1 * Math.sqrt(db.points.get(key, "points")));
         
-        //Act upon level up by sending a message and updating user's level in Enmap
+        //Act upon level-up by sending a message and updating user's level in Enmap
         if (db.points.get(key, "level") < curLevel) {
             message.reply(`You've leveled up to level **${curLevel}**!`);
             db.points.set(key, curLevel, "level");
@@ -76,7 +77,6 @@ client.on('message', message => {
     const command = client.commands.get(commandName);
 
     if (command.args && !args.length) {
-        //return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
         let reply = `You didn't provide any arguments, ${message.author}!`;
 
         if (command.usage) {
