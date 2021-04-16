@@ -2,9 +2,6 @@
 const db = require("../enmap.js");
 const Discord = require("discord.js");
 
-var emojis = [":first_place:", ":second_place:", ":third_place:"];
-var places = ["1st Place", "2nd Place", "3rd Place"];
-
 module.exports = {
     name: 'leaderboard',
     description: 'retrieves top 10 points leaders',
