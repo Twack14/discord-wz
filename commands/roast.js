@@ -9,7 +9,7 @@ module.exports = {
     usage: '<@username>',
     execute(message, args) {
         if (args.length !== 1) {
-        return message.reply(`You didn't provide the correct number of arguments, ${message.author}!\nThe proper usage would be: \`!${this.name} ${this.usage}\`\nHere are the list of platforms to use:\n${this.platforms}`);
+        return message.reply(`You didn't provide the correct number of arguments, ${message.author}!\nThe proper usage would be: \`!${this.name} ${this.usage}`);
         }
 
         else {
