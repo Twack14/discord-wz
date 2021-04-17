@@ -6,7 +6,7 @@ module.exports = {
     name: 'leaderboard',
     description: 'retrieves top 10 points leaders',
     execute(message, args) {
-        // Get a filtered list (for this guild only), and convert to an array while we're at it.
+        // Get a filtered list (for this guild only), and convert to an array.
         const filtered = db.points.filter(p => p.guild === message.guild.id).array();
 
         //Sort array to get the top results
