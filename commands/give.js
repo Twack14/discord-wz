@@ -29,8 +29,8 @@ module.exports = {
          }
 
          //can't give more than 10,000 points at a time
-         if (pointsToAdd > 10000) {
-            return message.reply(`You can only gift up to 10,000 points!`)
+         if (pointsToAdd > 1000) {
+            return message.reply(`You can only gift up to 1,000 points!`)
          }
 
          //if user forgets to add points to the command, send reminder
