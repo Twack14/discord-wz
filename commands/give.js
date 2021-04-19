@@ -28,7 +28,7 @@ module.exports = {
             return message.reply(`You can only gift a positive amount of points`);
          }
 
-         //can't give more than 10,000 points at a time
+         //can't give more than 1,000 points at a time
          if (pointsToAdd > 1000) {
             return message.reply(`You can only gift up to 1,000 points!`)
          }

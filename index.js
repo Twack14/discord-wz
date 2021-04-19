@@ -60,6 +60,13 @@ client.on('message', message => {
             message.reply(`You've leveled up to level **${curLevel}**!`);
             db.points.set(key, curLevel, "level");
         }
+
+
+        let halfChubb = message.guild.roles.cache.find(r => r.name === "Half Chub");
+        let member = db.points.get(key, "user");
+        if (db.points.get(key, "level") === 5) {
+            message.member.roles.add(halfChubb).catch(console.error);
+        }
         
     }
 
