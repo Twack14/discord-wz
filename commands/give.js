@@ -21,7 +21,6 @@ module.exports = {
             args[1] = args[1].replace(/,/g, '');
          }
          //takes second argument which determines amount of points to give specified user
-         //peepee
          const pointsToAdd = parseInt(args[1], 10)
 
          //can't give negative points
