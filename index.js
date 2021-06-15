@@ -4,11 +4,13 @@ const { prefix } = require('./config.json');
 const Discord = require('discord.js');
 const fs = require('fs');
 const random = require('random');
-//here is a test comment
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 //Enmap sharing
 const db = require("./enmap.js");
+
+//blizzard.js
+
 
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
