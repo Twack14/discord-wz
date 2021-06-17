@@ -81,6 +81,7 @@ async function addPoints(tag) {
             var points = await db_client.query(`select exp_points from discord_users WHERE user_name = $1`, [tag])
             var updatedPoints = points.rows[0].exp_points + randExp
             await db_client.query('update discord_users set exp_points = $1 where user_name = $2', [updatedPoints, tag])
+            console.log(`Added ${randExp} points to ${tag}`)
         } catch (err) {
             console.log(err)
         }
