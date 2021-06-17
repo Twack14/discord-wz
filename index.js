@@ -4,12 +4,10 @@ const { prefix } = require('./config.json');
 const Discord = require('discord.js');
 const fs = require('fs');
 const random = require('random');
-const client = new Discord.Client();
-client.commands = new Discord.Collection();
-//Enmap sharing
-const db = require("./enmap.js");
-
-//blizzard.js
+const discord_client = new Discord.Client();
+discord_client.commands = new Discord.Collection();
+const clientObject = require('./db_objects/client')
+const { Client } = require('pg');
 
 
 
@@ -17,60 +15,25 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
-    client.commands.set(command.name, command);
+    discord_client.commands.set(command.name, command);
 }
 
-client.once('ready', () => {
-    console.log(`Logged in as ${client.user.username}`);
+discord_client.once('ready', () => {
+    console.log(`Logged in as ${discord_client.user.username}`);
 });
 
-client.on('message', message => {
+discord_client.on('message', message => {
 
     //if the message doesn't contain a prefix, or is from the bot itself, return
     if (message.author.bot) return;
 
-    //this is the key to identify the proper user
-    const key = `${message.guild.id}-${message.author.id}`;
-    if (message.guild) {
+    //Add points to the user database
 
-        //Initialize a new entry in Enmap for any new user (hasn't sent message yet seen before)
-        db.points.ensure(key, {
-            user: message.author.id,
-            guild: message.guild.id,
-            points: 0,
-            level: 1,
-            username: message.author.username
-        });
+    //function to add points to the user's database entry
+    
 
-        //increments a value directly
-        db.points.math(key, "+", random.int(15, 25), "points");
-
-        if (message.content.includes("fuck")) {
-            db.points.math(key, "+", 100, "points");
-        }
-        
-        console.log(message.author.username + " has " + db.points.get(key, "points") + "xp.");
-        
-
-        //Calculate user's current level
-        //This line will calculate the square root of currentPoints then 
-        //multiplies that result by 0.1 then floors that result for a round number.
-        const curLevel = Math.floor(0.1 * Math.sqrt(db.points.get(key, "points")));
-        
-        //Act upon level-up by sending a message and updating user's level in Enmap
-        if (db.points.get(key, "level") < curLevel) {
-            message.reply(`You've leveled up to level **${curLevel}**!`);
-            db.points.set(key, curLevel, "level");
-        }
-
-
-        let halfChubb = message.guild.roles.cache.find(r => r.name === "Half Chub");
-        let member = db.points.get(key, "user");
-        if (db.points.get(key, "level") === 5) {
-            message.member.roles.add(halfChubb).catch(console.error);
-        }
-        
-    }
+    //add the points
+    addPoints(message.author.tag);
 
     
 
@@ -81,9 +44,9 @@ client.on('message', message => {
     
     
 
-    if (!client.commands.has(commandName)) return;
+    if (!discord_client.commands.has(commandName)) return;
 
-    const command = client.commands.get(commandName);
+    const command = discord_client.commands.get(commandName);
 
     if (command.args && !args.length) {
         let reply = `You didn't provide any arguments, ${message.author}!`;
@@ -103,4 +66,29 @@ client.on('message', message => {
     }
 });
 
-client.login(process.env.TOKEN);
+discord_client.login(process.env.TOKEN);
+
+
+//functions
+async function addPoints(tag) {
+    var randExp = random.int(15, 25)
+    const db_client = new Client(clientObject.client)
+
+    try {
+        await db_client.connect();
+        console.log('Connected Successfully')
+        try {
+            var points = await db_client.query(`select exp_points from discord_users WHERE user_name = $1`, [tag])
+            var updatedPoints = points.rows[0].exp_points + randExp
+            await db_client.query('update discord_users set exp_points = $1 where user_name = $2', [updatedPoints, tag])
+        } catch (err) {
+            console.log(err)
+        }
+    } catch (err) {
+        console.log(err);
+    } finally {
+        await db_client.end();
+        console.log('Successfully Disconnected')
+    }
+
+}
