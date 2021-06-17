@@ -27,62 +27,62 @@ module.exports = {
       });
 
 
+     
+        const response = wowClient.characterMythicKeystone({ realm: realm, name: name })
+        response.then(function (result) {
 
-      const response = wowClient.characterMythicKeystone({ realm: realm, name: name })
-      response.then(function (result) {
+          const avatar = wowClient.characterMedia({ realm: realm, name: name })
+          avatar.then(function (media) {
 
-        const avatar = wowClient.characterMedia({ realm: realm, name: name })
-        avatar.then(function (media) {
-
-          var characterAvatar = media.data.assets[0].value
+            var characterAvatar = media.data.assets[0].value
 
 
-          var mythicArray = result.data.current_period.best_runs
+            var mythicArray = result.data.current_period.best_runs
 
-          for (i = 0; i < mythicArray.length; i++) {
-            if (mythicArray[i].is_completed_within_time === false) {
-              mythicArray.splice(i, 1)
+            for (i = 0; i < mythicArray.length; i++) {
+              if (mythicArray[i].is_completed_within_time === false) {
+                mythicArray.splice(i, 1)
+              }
             }
-          }
 
-          var maxKeystoneRun = getMax(mythicArray, "keystone_level")
+            var maxKeystoneRun = getMax(mythicArray, "keystone_level")
 
-          //console.log(maxKeystoneRun.members[0].character.realm)
+            //console.log(maxKeystoneRun.members[0].character.realm)
 
-          var teamNames = []
-          for (i = 0; i < maxKeystoneRun.members.length; i++) {
-            teamNames[i] = {name: maxKeystoneRun.members[i].character.name, realm: maxKeystoneRun.members[i].character.realm.slug, item_level: maxKeystoneRun.members[i].equipped_item_level}
-          }
+            var teamNames = []
+            for (i = 0; i < maxKeystoneRun.members.length; i++) {
+              teamNames[i] = { name: maxKeystoneRun.members[i].character.name, realm: maxKeystoneRun.members[i].character.realm.slug, item_level: maxKeystoneRun.members[i].equipped_item_level }
+            }
 
-          var affixNames = []
-          for (i = 0; i < maxKeystoneRun.keystone_affixes.length; i++) {
-            affixNames[i] = maxKeystoneRun.keystone_affixes[i].name
-          }
-          
-
-          var runTime = millisToMinutesAndSeconds(maxKeystoneRun.duration)
-          var withinTimeLimitIndicator
-          if (maxKeystoneRun.is_completed_within_time === true) {
-            withinTimeLimitIndicator = "Yes"
-          } else {
-            withinTimeLimitIndicator = "No"
-          }
+            var affixNames = []
+            for (i = 0; i < maxKeystoneRun.keystone_affixes.length; i++) {
+              affixNames[i] = maxKeystoneRun.keystone_affixes[i].name
+            }
 
 
-          wowEmbed.title = `Best Mythic+ Run of the Week for ${args[1]}`;
-          wowEmbed.thumbnail.url = characterAvatar
-          wowEmbed.fields[0].value = maxKeystoneRun.dungeon.name;
-          wowEmbed.fields[1].value = runTime;
-          wowEmbed.fields[2].value = maxKeystoneRun.keystone_level;
-          wowEmbed.fields[3].value = withinTimeLimitIndicator;
-          wowEmbed.fields[4].value = affixNames;
-          wowEmbed.fields[5].value = `${teamNames[0].name}-${teamNames[0].realm} iLVL: ${teamNames[0].item_level}\n${teamNames[1].name}-${teamNames[1].realm} iLVL: ${teamNames[1].item_level}\n${teamNames[2].name}-${teamNames[2].realm} iLVL: ${teamNames[2].item_level}\n${teamNames[3].name}-${teamNames[3].realm} iLVL: ${teamNames[3].item_level}\n${teamNames[4].name}-${teamNames[4].realm} iLVL: ${teamNames[4].item_level}\n`;
+            var runTime = millisToMinutesAndSeconds(maxKeystoneRun.duration)
+            var withinTimeLimitIndicator
+            if (maxKeystoneRun.is_completed_within_time === true) {
+              withinTimeLimitIndicator = "Yes"
+            } else {
+              withinTimeLimitIndicator = "No"
+            }
 
 
-          return message.channel.send({ embed: wowEmbed });
+            wowEmbed.title = `Best Mythic+ Run of the Week for ${args[1]}`;
+            wowEmbed.thumbnail.url = characterAvatar
+            wowEmbed.fields[0].value = maxKeystoneRun.dungeon.name;
+            wowEmbed.fields[1].value = runTime;
+            wowEmbed.fields[2].value = maxKeystoneRun.keystone_level;
+            wowEmbed.fields[3].value = withinTimeLimitIndicator;
+            wowEmbed.fields[4].value = affixNames;
+            wowEmbed.fields[5].value = `${teamNames[0].name}-${teamNames[0].realm} iLVL: ${teamNames[0].item_level}\n${teamNames[1].name}-${teamNames[1].realm} iLVL: ${teamNames[1].item_level}\n${teamNames[2].name}-${teamNames[2].realm} iLVL: ${teamNames[2].item_level}\n${teamNames[3].name}-${teamNames[3].realm} iLVL: ${teamNames[3].item_level}\n${teamNames[4].name}-${teamNames[4].realm} iLVL: ${teamNames[4].item_level}\n`;
 
+
+            return message.channel.send({ embed: wowEmbed });
+
+          })
         })
-      })
 
 
       //return message.channel.send(response);
