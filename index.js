@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const discord_client = new Discord.Client();
 discord_client.commands = new Discord.Collection();
-const ap = require('./db_functions/addPoints');
+const dbf = require('./db_functions/addPoints');
 
 
 
@@ -27,7 +27,7 @@ discord_client.on('message', message => {
     
 
     //add points per message
-    ap.addPoints(message.author.tag);
+    dbf.addPoints(message.author.tag);
 
     
 
