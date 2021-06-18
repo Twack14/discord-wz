@@ -3,11 +3,9 @@ const config = require('./config.json');
 const { prefix } = require('./config.json');
 const Discord = require('discord.js');
 const fs = require('fs');
-const random = require('random');
 const discord_client = new Discord.Client();
 discord_client.commands = new Discord.Collection();
-const clientObject = require('./db_objects/client')
-const { Client } = require('pg');
+const ap = require('./db_functions/addPoints');
 
 
 
@@ -26,14 +24,10 @@ discord_client.on('message', message => {
 
     //if the message doesn't contain a prefix, or is from the bot itself, return
     if (message.author.bot) return;
-
-    //Add points to the user database
-
-    //function to add points to the user's database entry
     
 
-    //add the points
-    addPoints(message.author.tag);
+    //add points per message
+    ap.addPoints(message.author.tag);
 
     
 
@@ -68,28 +62,3 @@ discord_client.on('message', message => {
 
 discord_client.login(process.env.TOKEN);
 
-
-//functions
-async function addPoints(tag) {
-    var randExp = random.int(15, 25)
-    const db_client = new Client(clientObject.client)
-
-    try {
-        await db_client.connect();
-        console.log('Connected Successfully')
-        try {
-            var points = await db_client.query(`select exp_points from discord_users WHERE user_name = $1`, [tag])
-            var updatedPoints = points.rows[0].exp_points + randExp
-            await db_client.query('update discord_users set exp_points = $1 where user_name = $2', [updatedPoints, tag])
-            console.log(`Added ${randExp} points to ${tag}`)
-        } catch (err) {
-            console.log(err)
-        }
-    } catch (err) {
-        console.log(err);
-    } finally {
-        await db_client.end();
-        console.log('Successfully Disconnected')
-    }
-
-}
