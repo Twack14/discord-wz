@@ -3,6 +3,7 @@ const Discord = require("discord.js");
 const axios = require('axios');
 const fetch = require('node-fetch');
 const baseUrl = "http://localhost:3000"
+const dbf = require('../db_functions/db_function')
 
 module.exports = {
     name: 'give',

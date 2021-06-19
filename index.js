@@ -27,8 +27,7 @@ discord_client.on('message', message => {
     if (message.author.bot) return;
 
 
-
-
+    var currentLevel = 
 
     //checks the user's current points, then adds the points for the message, then
     dbf.getPoints(message.author.tag)
@@ -36,14 +35,13 @@ discord_client.on('message', message => {
             console.log(results);
         }).then(() => {
             dbf.updatePoints(message.author.tag);
-        }).finally(() => {
+        }).then(() => {
             dbf.getPoints(message.author.tag)
                 .then((results) => {
+                    const curLevel = Math.floor(0.1 * Math.sqrt(results));
                     console.log(results);
                 })
         })
-
-
 
     //split the message into an array, then remove the first array item which is the command itself
     const args = message.content.slice(prefix.length).split(/ +/);
