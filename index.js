@@ -5,7 +5,8 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const discord_client = new Discord.Client();
 discord_client.commands = new Discord.Collection();
-const dbf = require('./db_functions/addPoints');
+const ap = require('./db_functions/addPoints');
+const lu = require('./db_functions/level_up');
 
 
 
@@ -25,9 +26,19 @@ discord_client.on('message', message => {
     //if the message doesn't contain a prefix, or is from the bot itself, return
     if (message.author.bot) return;
     
+    
+    var curlevel = lu.getLevel(message.author.tag);
+    curlevel.then((results) => {
+        console.log(results);
+    })
 
+    
+    
+    //console.log(level);
+    //console.log(level);
+    //console.log(level)
     //add points per message
-    dbf.addPoints(message.author.tag);
+    ap.addPoints(message.author.tag);
 
     
 
