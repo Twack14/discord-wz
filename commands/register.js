@@ -32,7 +32,7 @@ module.exports = {
             }
 
             try {
-                await client.query('insert into discord_users(ID, user_name) values($1, $2)', [id, message.author.tag])
+                await client.query('insert into discord_users(ID, user_name, current_level) values($1, $2, $3)', [id, message.author.tag, 1])
                 const results = await client.query('select * from discord_users')
                 console.log(results)
                 return message.reply('You were successfully registered to the database!')
