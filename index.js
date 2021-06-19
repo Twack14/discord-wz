@@ -6,7 +6,7 @@ const fs = require('fs');
 const discord_client = new Discord.Client();
 discord_client.commands = new Discord.Collection();
 const ap = require('./db_functions/addPoints');
-const lu = require('./db_functions/level_up');
+const dbf = require('./db_functions/db_function');
 
 
 
@@ -25,29 +25,32 @@ discord_client.on('message', message => {
 
     //if the message doesn't contain a prefix, or is from the bot itself, return
     if (message.author.bot) return;
-    
-    
-    var curlevel = lu.getLevel(message.author.tag);
-    curlevel.then((results) => {
-        console.log(results);
-    })
 
-    
-    
-    //console.log(level);
-    //console.log(level);
-    //console.log(level)
-    //add points per message
-    ap.addPoints(message.author.tag);
 
-    
+
+
+
+    //checks the user's current points, then adds the points for the message, then
+    dbf.getPoints(message.author.tag)
+        .then((results) => {
+            console.log(results);
+        }).then(() => {
+            dbf.updatePoints(message.author.tag);
+        }).finally(() => {
+            dbf.getPoints(message.author.tag)
+                .then((results) => {
+                    console.log(results);
+                })
+        })
+
+
 
     //split the message into an array, then remove the first array item which is the command itself
     const args = message.content.slice(prefix.length).split(/ +/);
     //const command = args.shift().toLowerCase();
     const commandName = args.shift().toLowerCase();
-    
-    
+
+
 
     if (!discord_client.commands.has(commandName)) return;
 
