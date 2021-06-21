@@ -10,6 +10,7 @@ const dbf = require('./db_functions/db_function');
 
 
 
+
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
@@ -27,21 +28,14 @@ discord_client.on('message', message => {
     if (message.author.bot) return;
 
 
-    var currentLevel = 
+
 
     //checks the user's current points, then adds the points for the message, then
-    dbf.getPoints(message.author.tag)
-        .then((results) => {
-            console.log(results);
-        }).then(() => {
-            dbf.updatePoints(message.author.tag);
-        }).then(() => {
-            dbf.getPoints(message.author.tag)
-                .then((results) => {
-                    const curLevel = Math.floor(0.1 * Math.sqrt(results));
-                    console.log(results);
-                })
-        })
+    try {
+    dbf.updatePointsLevelUp(message.author.tag, message);
+    } catch (err) {
+        console.log(err);
+    }
 
     //split the message into an array, then remove the first array item which is the command itself
     const args = message.content.slice(prefix.length).split(/ +/);

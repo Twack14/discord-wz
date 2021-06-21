@@ -23,19 +23,20 @@ module.exports = {
 
                 var username = await client.query(`select user_name from discord_users WHERE user_name = $1`, [message.author.tag])
 
-                if (username.rows[0].user_name = message.author.id) {
-                    return message.reply('You are already registered in the database!')
-                }
+                //console.log(username);
+                if (username.rowCount === 1) {
+                     return message.reply('You are already registered in the database!')
+                 }
 
             } catch (err) {
                 console.log(err)
             }
 
             try {
-                await client.query('insert into discord_users(ID, user_name, exp_points) values($1, $2, $3)', [id, message.author.tag, 1])
+                await client.query('insert into discord_users(ID, user_name, exp_points) values($1, $2, $3)', [id, message.author.tag, 100])
                 const results = await client.query('select * from discord_users')
                 console.log(results)
-                return message.reply('You were successfully registered to the database!')
+                return message.reply(`You were successfully registered to the database! You are now level **${results.rows[0].current_level}**`)
 
             } catch (err) {
                 console.log(err)

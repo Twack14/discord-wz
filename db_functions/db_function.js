@@ -4,86 +4,44 @@ const fetch = require('node-fetch');
 const axios = require('axios');
 const baseUrl = "http://localhost:3000"
 const random = require('random');
+const Discord = require('discord.js');
+const discord_client = new Discord.Client();
 
 
-async function levelUp(tag) {
-    try {
-        fullUrl = baseUrl + `/users/${tag}`
-        const response = fetch(fullUrl)
-        const json = response.json();
-        var currentLevel = json[0].current_level
-        var nextLevel = currentLevel + 1
-
-        axios.put(fullUrl, `current_level=${nextLevel}`);
-    } catch (err) {
-        console.log(err);
+//function that adds xp points per message, checks for a level change, and updates user when they level up
+//if user does not exit, the json variable will return [], therefore the user doesn't exist, in the database
+async function updatePointsLevelUp(tag, message) {
+    var randExp = random.int(15, 25);
+    var tag = encodeURIComponent(tag);
+    var fullUrl = baseUrl + `/users/${tag}`
+    const response = await fetch(fullUrl);
+    const json = await response.json();
+    if (json.length === 0) {
+        return console.log(`${tag} does not exist in the database.`)
     }
+    var currentLevel = await json[0].current_level;
+    var currentPoints = json[0].exp_points;
+    var newPoints = currentPoints + randExp;
+
+    var newLevel = Math.floor(0.1 * Math.sqrt(newPoints));
+
+    console.log(`Points before update: ${currentPoints}`);
+
+    axios.put(fullUrl, `exp_points=${newPoints}`)
+
+    console.log(`Points after update ${newPoints}\n`)
 
 
-}
-
-async function checkLevel(tag) {
-    try {
-        var tag = encodeURIComponent(tag);
-        fullUrl = baseUrl + `/users/${tag}`
-        const response = await fetch(fullUrl);
-        const json = await response.json();
-        var currentLevel = json[0].current_level;
-        return currentLevel
-    } catch (err) {
-        console.log(err);
-    }
-}
-
-async function checkPoints(tag) {
-    try {
-        var tag = encodeURIComponent(tag);
-        fullUrl = baseUrl + `/users/${tag}`
-        const response = await fetch(fullUrl);
-        const json = await response.json();
-        var currentPoints = json[0].exp_points;
-        console.log(`User has ${currentPoints} before update.`)
-        return currentPoints;
-    } catch (err) {
-        console.log(err);
+    if (newLevel > currentLevel) {
+        return message.reply(`Congratulations! You have leveled up to level **${newLevel}**`);
     }
 
 }
 
-async function updatePoints(tag) {
-    try {
-        var randExp = random.int(15, 25)
-        var tag = encodeURIComponent(tag);
-        fullUrl = fullUrl = baseUrl + `/users/${tag}`
-        const response = await fetch(fullUrl);
-        const json = await response.json();
-        var currentPoints = json[0].exp_points;
-        var updatedPoints = randExp + currentPoints;
-
-        console.log(`User now has ${updatedPoints} points`);
-
-        axios.put(fullUrl, `exp_points=${updatedPoints}`);
-
-    } catch (err) {
-
-    }
-}
 
 
-async function getPoints(tag) {
-    return await checkPoints(tag);
-}
 
-async function getLevel(tag) {
-    return await checkLevel(tag);
-    
-}
 
 module.exports = {
-    levelUp,
-    checkLevel,
-    getLevel,
-    checkPoints,
-    getPoints,
-    updatePoints
+    updatePointsLevelUp
 }
