@@ -79,6 +79,8 @@ module.exports = {
 
 
 
+                } else {
+                    return message.reply('You are not allowed to use that command!')
                 }
             } catch (err) {
                 console.log(err);
