@@ -33,8 +33,8 @@ module.exports = {
             }
 
             try {
-                await client.query('insert into discord_users(ID, user_name, exp_points) values($1, $2, $3)', [id, message.author.tag, 100])
-                const results = await client.query('select * from discord_users')
+                await client.query('insert into discord_users(ID, user_name, exp_points, discord_id) values($1, $2, $3, $4)', [id, message.author.tag, 100, message.author.id])
+                const results = await client.query('select * from discord_users where user_name = $1', [message.author.tag])
                 console.log(results)
                 return message.reply(`You were successfully registered to the database! You are now level **${results.rows[0].current_level}**`)
 

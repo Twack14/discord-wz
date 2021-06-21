@@ -4,6 +4,7 @@ const axios = require('axios');
 const fetch = require('node-fetch');
 const baseUrl = "http://localhost:3000"
 const dbf = require('../db_functions/db_function')
+const { levelUp } = require('../embeds/levelUp')
 
 module.exports = {
     name: 'give',
@@ -45,24 +46,38 @@ module.exports = {
                     if (!pointsToAdd) {
                         return message.reply(`You didn't tell me how many points to give. \nUse: \`!${this.name} ${this.usage}\``)
                     }
-                    
+
                     const tag = `${user.username}` + `%23` + `${user.discriminator}`
+                    //console.log(user)
                     console.log(tag);
 
                     //fetch the current points of the user
                     const response = await fetch(baseUrl + `/users/${tag}`);
                     const json = await response.json();
                     var currentPoints = json[0].exp_points;
-                    console.log(currentPoints);
+                    var currentLevel = await json[0].current_level;
+                    var username = json[0].discord_id
+
+                    console.log(currentLevel);
 
                     //add the new points to the currentPoints
                     var newPoints = currentPoints + pointsToAdd;
+                    var newLevel = Math.floor(0.1 * Math.sqrt(newPoints));
+                    console.log(newLevel)
                     var fullUrl = baseUrl + `/users/${tag}`
                     //update the user's points with the new points
                     axios.put(fullUrl, `exp_points=${newPoints}`);
 
-                    
-                    
+                    levelUp.title = `Level Up!`
+                    levelUp.fields[0].value = `<@${username}>`
+                    levelUp.fields[1].value = `**${newLevel}**`
+                    levelUp.fields[2].value = `${newPoints}`
+
+                    if (newLevel > currentLevel) {
+                        return message.channel.send({embed: levelUp});
+                    }
+
+
 
                 }
             } catch (err) {

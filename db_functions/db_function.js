@@ -6,6 +6,7 @@ const baseUrl = "http://localhost:3000"
 const random = require('random');
 const Discord = require('discord.js');
 const discord_client = new Discord.Client();
+const { levelUp } = require('../embeds/levelUp')
 
 
 //function that adds xp points per message, checks for a level change, and updates user when they level up
@@ -21,6 +22,8 @@ async function updatePointsLevelUp(tag, message) {
     }
     var currentLevel = await json[0].current_level;
     var currentPoints = json[0].exp_points;
+    var username = json[0].discord_id;
+    
     var newPoints = currentPoints + randExp;
 
     var newLevel = Math.floor(0.1 * Math.sqrt(newPoints));
@@ -31,9 +34,13 @@ async function updatePointsLevelUp(tag, message) {
 
     console.log(`Points after update ${newPoints}\n`)
 
+    levelUp.title = `Level Up!`
+    levelUp.fields[0].value = `<@${username}>`
+    levelUp.fields[1].value = `**${newLevel}**`
+    levelUp.fields[2].value = `${newPoints}`
 
     if (newLevel > currentLevel) {
-        return message.reply(`Congratulations! You have leveled up to level **${newLevel}**`);
+        return message.reply({embed: levelUp});
     }
 
 }
