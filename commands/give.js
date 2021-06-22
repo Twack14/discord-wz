@@ -54,6 +54,9 @@ module.exports = {
                     //fetch the current points of the user
                     const response = await fetch(baseUrl + `/users/${tag}`);
                     const json = await response.json();
+                    if (json.length === 0) {
+                        return message.reply(`That user does not exist in the database! Tell them to register with the \`!register\` command to start earning xp!`)
+                    }
                     var currentPoints = json[0].exp_points;
                     var currentLevel = await json[0].current_level;
                     var username = json[0].discord_id
@@ -75,7 +78,11 @@ module.exports = {
 
                     if (newLevel > currentLevel) {
                         return message.channel.send({embed: levelUp});
+                    } else {
+                        return message.channel.send(`<@${username}> has received **${pointsToAdd}**xp!`);
                     }
+
+
 
 
 
